@@ -1,0 +1,23 @@
+{
+  "name": "swapp-webapp-api",
+  "version": "1.0.0",
+  "description": "Modern barter trading web app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cate865/swapp-webapp-api.git"
+  },
+  "author": "Catherine Muthoni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cate865/swapp-webapp-api/issues"
+  },
+  "homepage": "https://github.com/cate865/swapp-webapp-api#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
