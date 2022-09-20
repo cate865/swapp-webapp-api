@@ -1,12 +1,22 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import pkg from 'mongoose';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import router from './routes';
+
 const {connect,connection} = pkg;
 
 const app = express();
 dotenv.config()
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
 
 const port = "3000" || "3001";
+
+app.use(router)
 
 // Database connection
 

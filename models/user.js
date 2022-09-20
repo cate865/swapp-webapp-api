@@ -1,36 +1,17 @@
 import pkg from 'mongoose';
 const { Schema, model } = pkg;
 
-const ProductSchema  = new Schema({
-    name:{
-        type:String,
+const UserSchema  = new Schema({
+    name:String,
+    email:String,
+    password:String
         
-    },
-    description:{
-        type: String,
-        
-    },
-    deliveryAddress:{
-        type: String,
-        
-    },
-    images:{
-        [{data: Buffer,
-        contentType: String}]
-    },
-    forTrade:{
-        type: Boolean
-    },
-    donor:{
-        type: Number
-    },
-    receiver:{
-        type:Number
-    }
-
-
 });
 
-const Product = model('Product', ProductSchema);
+const User = model('User', UserSchema);
 
-export default Product
+// User.createCollection().then(function(collection) {
+//   console.log('User Collection is created!');
+// });
+
+export default User
