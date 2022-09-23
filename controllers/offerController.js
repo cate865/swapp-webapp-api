@@ -1,9 +1,21 @@
-import Offer from "../models/offer";
-import Product from "../models/product";
+import Offer from "../models/offer.js";
+import Product from "../models/product.js";
+import { populateImages } from "../middlewares/fileConfig.js";
 
 // Make a Trade Offer
 export async function makeTradeOffer(req, res) {
-    const offerDoc = new Offer(req.body);
+    const offerDoc = new Offer({
+        interestedProduct: req.body.interestedProduct,
+        exchangeProductName: req.body.exchangeProductName,
+        description: req.body.description,
+        address: req.body.address,
+    });
+
+
+
+    if (req.files) {
+        offerDoc.images = await populateImages(req.files)
+    }
     try {
 
         let offer = await offerDoc.save();
@@ -26,28 +38,58 @@ export async function makeTradeOffer(req, res) {
 
 }
 
-// Accept or Reject Trade Offer
-export async function respondToOffer(req, res) {
+// // Reject Trade Offer
+// export async function rejectOffer(req, res) {
+//     try {
+//         let offer = await Offer.findById(req.params.id);
+//         // let updatedOffer = await Offer.findByIdAndUpdate(req.params.id, { accep});
+//         //     if (updatedOffer) {
+
+//         //         let updatedProduct = await Product.findByIdAndUpdate(offer.interestedProduct, { booked: true });
+//                 return res.status(200).json({
+//                     message: "Offer accepted. Updated successfully",
+//                     data: updatedOffer, updatedProduct
+//                 })
+//             }
+
+//         // if (req.body.accepted === true) {
+            
+//         // } else {
+//         //     return res.status(200).json({
+//         //         message: "Offer rejected. Details maintained"
+//         //     })
+//         // }
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: "Oops! Something must be wrong"
+//         })
+//     }
+
+// }
+
+// Accept Trade Offer
+export async function acceptOffer(req, res) {
     try {
         let offer = await Offer.findById(req.params.id);
-        if (req.body.accepted === true) {
-            let updatedOffer = await Offer.findByIdAndUpdate(req.params.id, req.body);
-            if (updatedOffer) {
+        let updatedOffer = await Offer.findByIdAndUpdate(req.params.id, { accepted: true });
+        if (updatedOffer) {
 
-                let updatedProduct = await Product.findByIdAndUpdate(offer.interestedProduct, { booked: true });
-                res.status(200).json({
-                    message: "Offer accepted. Updated successfully",
-                    data: updatedOffer, updatedProduct
-                })
-            }
-
-        } else {
-            res.status(200).json({
-                message: "Offer rejected. Details maintained"
+            let updatedProduct = await Product.findByIdAndUpdate(offer.interestedProduct, { booked: true });
+            return res.status(200).json({
+                message: "Offer accepted. Updated successfully",
+                data: updatedOffer, updatedProduct
             })
         }
+        // if (req.body.accepted === true) {
+
+
+        // } else {
+        //     return res.status(200).json({
+        //         message: "Offer rejected. Details maintained"
+        //     })
+        // }
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Oops! Something must be wrong"
         })
     }

@@ -7,11 +7,11 @@ const ProductSchema = new Schema({
     deliveryAddress: String,
 
     // eslint-disable-next-line no-undef
-    images: [Buffer],
+    images: [String],
 
     forTrade: Boolean,
     // eslint-disable-next-line no-undef
-    donor: ObjectId,
+    donor: Schema.Types.ObjectId,
     booked: {
         type: Boolean,
         default: false

@@ -5,7 +5,7 @@ const OfferSchema = new Schema({
     interestedProduct: Schema.Types.ObjectId,
     exchangeProductName: String,
     description: String,
-    images: [Schema.Types.Buffer],
+    images: [String],
     address: String,
     accepted: {
         type: Boolean,

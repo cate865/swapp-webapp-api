@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import pkg from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import router from './routes';
+import router from './routes/index.js';
 
 const {connect,connection} = pkg;
 
@@ -42,3 +42,5 @@ app.get("/", (req,res)=>{
 app.listen(port, ()=>{
     console.log(`Swapp Web API is running on port ${port}`);
 })
+
+export default app

@@ -1,48 +1,78 @@
-import Product from "../models/product";
+import Product from "../models/product.js";
+import { populateImages } from "../middlewares/fileConfig.js";
 
 // Post a product
-export async function postProduct(req,res){
-    const productDoc = new Product(req.body);
-    try{
+export async function postProduct(req, res) {
+    //const productDoc = new Product(req.body);
+    const productDoc = new Product({
+        name: req.body.name,
+        description: req.body.description,
+        deliveryAddress: req.body.deliveryAddress,
+
+        // eslint-disable-next-line no-undef
+        // images: req.files,
+
+        forTrade: req.body.forTrade,
+        // eslint-disable-next-line no-undef
+        donor: req.body.donor,
+        
+    })
+
+    // function populateImages(files){
+    //     let filePathArray = []
+    //     files.forEach(file => {
+    //         filePathArray.push(file.path)
+    //     });
+    //     return filePathArray
+
+    // }
+
+    if (req.files) {
+        productDoc.images = await populateImages(req.files)
+    }
+
+    try {
         let newProduct = await productDoc.save();
-        res.status(200).json({
+        return res.status(200).json({
             message: " Product created successfully",
             data: newProduct
         })
 
-    } catch(err){
-        res.status(500).json({
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({
             message: "Oops! Something must be wrong...",
+
         })
 
     }
-    
+
 }
 
 // Deliver a product
-export async function markProductAsDelivered(req, res){
+export async function markProductAsDelivered(req, res) {
     try {
-        let product = await Product.findByIdAndUpdate(req.params.id, {exchanged: true});
-        if (product){
-            res.status(200).json({
+        let product = await Product.findByIdAndUpdate(req.params.id, { exchanged: true });
+        if (product) {
+            return res.status(200).json({
                 message: "Product marked as delivered!",
-                data: product
+                
             })
         }
 
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Oops! Something must be wrong!"
         })
     }
-    
+
 }
 
 
 // View products for trade
-export async function viewProductsForTrade(req, res){
+export async function viewProductsForTrade(req, res) {
     try {
-        let product = await Product.find({forTrade: true});
+        let product = await Product.find({ forTrade: true });
         if (product) {
             res.status(200).json({
                 message: "Products retrieved successfully",
@@ -61,9 +91,9 @@ export async function viewProductsForTrade(req, res){
 }
 
 // View Products for donation
-export async function viewProductsForDonation(req, res){
+export async function viewProductsForDonation(req, res) {
     try {
-        let product = await Product.find({forTrade: false});
+        let product = await Product.find({ forTrade: false });
         if (product) {
             res.status(200).json({
                 message: "Products retrieved successfully",
