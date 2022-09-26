@@ -3,14 +3,13 @@ import { populateImages } from "../middlewares/fileConfig.js";
 
 // Post a product
 export async function postProduct(req, res) {
-    //const productDoc = new Product(req.body);
+    
     const productDoc = new Product({
         name: req.body.name,
         description: req.body.description,
         deliveryAddress: req.body.deliveryAddress,
 
         // eslint-disable-next-line no-undef
-        // images: req.files,
 
         forTrade: req.body.forTrade,
         // eslint-disable-next-line no-undef
@@ -18,22 +17,13 @@ export async function postProduct(req, res) {
         
     })
 
-    // function populateImages(files){
-    //     let filePathArray = []
-    //     files.forEach(file => {
-    //         filePathArray.push(file.path)
-    //     });
-    //     return filePathArray
-
-    // }
-
     if (req.files) {
         productDoc.images = await populateImages(req.files)
     }
 
     try {
         let newProduct = await productDoc.save();
-        return res.status(200).json({
+        return res.status(201).json({
             message: " Product created successfully",
             data: newProduct
         })

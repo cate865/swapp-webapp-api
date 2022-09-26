@@ -38,35 +38,6 @@ export async function makeTradeOffer(req, res) {
 
 }
 
-// // Reject Trade Offer
-// export async function rejectOffer(req, res) {
-//     try {
-//         let offer = await Offer.findById(req.params.id);
-//         // let updatedOffer = await Offer.findByIdAndUpdate(req.params.id, { accep});
-//         //     if (updatedOffer) {
-
-//         //         let updatedProduct = await Product.findByIdAndUpdate(offer.interestedProduct, { booked: true });
-//                 return res.status(200).json({
-//                     message: "Offer accepted. Updated successfully",
-//                     data: updatedOffer, updatedProduct
-//                 })
-//             }
-
-//         // if (req.body.accepted === true) {
-            
-//         // } else {
-//         //     return res.status(200).json({
-//         //         message: "Offer rejected. Details maintained"
-//         //     })
-//         // }
-//     } catch (error) {
-//         return res.status(500).json({
-//             message: "Oops! Something must be wrong"
-//         })
-//     }
-
-// }
-
 // Accept Trade Offer
 export async function acceptOffer(req, res) {
     try {
@@ -80,14 +51,7 @@ export async function acceptOffer(req, res) {
                 data: updatedOffer, updatedProduct
             })
         }
-        // if (req.body.accepted === true) {
-
-
-        // } else {
-        //     return res.status(200).json({
-        //         message: "Offer rejected. Details maintained"
-        //     })
-        // }
+       
     } catch (error) {
         return res.status(500).json({
             message: "Oops! Something must be wrong"

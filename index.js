@@ -21,7 +21,7 @@ app.use(router)
 // Database connection
 
 // eslint-disable-next-line no-undef
-const uri = process.env.DATABASE_URL;
+const uri = process.env.DATABASE_URL_PROD;
 
 
 connect(uri, { useNewUrlParser: true, useUnifiedTopology: true,},() => {

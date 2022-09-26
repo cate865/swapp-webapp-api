@@ -80,32 +80,3 @@ export async function userLogin(req, res) {
 
 }
 
-// View Profile
-
-export async function viewProfile(req, res) {
-    try {
-        let user = await User.findOne({ where: { email: req.body.email } });
-        if (!user) {
-            return res.status(200).json({
-                success: false,
-                message: "User not found"
-            })
-        }
-
-        return res.status(200).json({
-            success: "true",
-            message: "User Found successfilly",
-            data: user
-        })
-
-    }
-    catch (error) {
-        return res.status(500).json({
-            message: "Oops...something went wrong"
-        })
-
-    }
-
-}
-
-

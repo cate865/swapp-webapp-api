@@ -7,6 +7,5 @@ const offerRouter = express.Router()
 
 offerRouter.post("/create", authenticate, upload.array('images'), makeTradeOffer)
 offerRouter.get("/accept/:id", authenticate, acceptOffer)
-offerRouter.get("/reject/:id", authenticate, acceptOffer)
 
 export default offerRouter
