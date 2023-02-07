@@ -17,7 +17,7 @@ Swapp is a modern barter trading/donation web app built using Express(Node.js). 
 ## Main Learnings
 - JWT Authentication
 - File Upload and Management using Multer
-
+- Test Driven Development and Unit Testing using Chai
 
 ## Entity Relationship Diagram(ERD)
 ![ERD](SwappERD.png )
